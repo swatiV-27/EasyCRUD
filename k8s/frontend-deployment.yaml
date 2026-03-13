@@ -17,3 +17,17 @@ spec:
         image: yourdockerhub/easycrud-frontend
         ports:
         - containerPort: 80
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend-service
+spec:
+  type: NodePort   # Or LoadBalancer in cloud
+  selector:
+    app: frontend
+  ports:
+    - port: 80       # Port inside the cluster
+      targetPort: 80 # Container port
+      nodePort: 30007 # Optional external port
